@@ -5,4 +5,10 @@ class UserTest < ActiveSupport::TestCase
     u = User.new
     assert_not u.valid?
   end
+
+  test "should validate correct attributes" do
+    u = User.new(name: "test", email: "mail@server.com", password: "password")
+    u.validate!
+    assert u.valid?
+  end
 end
