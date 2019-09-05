@@ -1,0 +1,19 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  requester: alice
+  requestee: bob
+  accepted: false
+  accepted_on:
+
+two:
+  requester: bob
+  requestee: carl
+  accepted: false
+  accepted_on: 
+
+three:
+  requester: alice
+  requestee: carl
+  accepted: true
+  accepted_on: 2019-09-05 23:40:34
