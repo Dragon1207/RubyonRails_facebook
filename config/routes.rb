@@ -3,4 +3,5 @@ Rails.application.routes.draw do
   root to: "static_pages#home"
   devise_for :users
   resources :users, only:[:index, :show]
+  resources :friend_requests, only:[:index, :create, :update, :destroy]
 end

@@ -1,0 +1,16 @@
+<h1>FriendRequests#index</h1>
+<% unless @friend_offers.empty? %>
+  <ul>
+    <% @friend_offers.each do |offer| %>
+    <li><%= offer.requester.name %></li>
+    <% end %>
+  </ul>
+<% end %>
+<%= content_tag('hr') unless @friend_offers.empty? || @friend_requests.empty? %>
+<% unless @friend_requests.empty? %>
+  <ul>
+    <% @friend_requests.each do |request| %>
+    <li><%= request.requestee.name %></li>
+    <% end %>
+  </ul>
+<% end %>
