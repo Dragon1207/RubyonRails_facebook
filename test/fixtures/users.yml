@@ -16,3 +16,7 @@ bob:
 carl:
   name:   "Carl"
   email:  "carl@example.com"
+
+dave:
+  name:  "Dave"
+  email: "dave@example.com"  
