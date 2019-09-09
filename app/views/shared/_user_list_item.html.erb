@@ -1,0 +1,10 @@
+<li>
+  <%= user.name %>
+  <% case type %>
+  <% when :send %>
+    <%= form_with url:friend_requests_path do %>
+      <%= hidden_field_tag :friend_id, user.id %>
+      <%= submit_tag "Send Friend Request" %>
+    <% end %>
+  <% end %>
+</li>

@@ -21,4 +21,11 @@ class User < ApplicationRecord
   def friends
     User.where(id: friendships_made.pluck(:requestee_id) + friendships_approved.pluck(:requester_id))
   end
+
+  # user's friend recommendations
+  def strangers
+    ids = FriendRequest.select("CASE WHEN requestee_id = #{id} THEN requester_id WHEN requester_id = #{id} THEN requestee_id END AS user_id")
+                       .where("requestee_id = #{id} OR requester_id = #{id}")
+    User.where("id NOT IN (?) AND id != #{id}", ids.empty? ? '' : ids)
+  end
 end
