@@ -2,7 +2,9 @@
 <% unless @friend_offers.empty? %>
   <ul>
     <% @friend_offers.each do |offer| %>
-    <li><%= offer.requester.name %></li>
+    <%= render 'shared/user_list_item', user: offer.requester,
+                                        request: offer,
+                                        type: :accept %>
     <% end %>
   </ul>
 <% end %>
@@ -10,7 +12,9 @@
 <% unless @friend_requests.empty? %>
   <ul>
     <% @friend_requests.each do |request| %>
-    <li><%= request.requestee.name %></li>
+    <%= render 'shared/user_list_item', user: request.requestee,
+                                        request: request,
+                                        type: :revoke %>
     <% end %>
   </ul>
 <% end %>

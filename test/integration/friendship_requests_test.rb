@@ -36,4 +36,19 @@ class FriendshipRequestsTest < ActionDispatch::IntegrationTest
     assert_match "Bob", response.body
     assert_match "Carl", response.body
   end
+
+  test "should have buttons to accept and delete requests" do
+    get friend_requests_path
+    # dave's request to alice
+    dave_to_alice = friend_requests(:four)
+    assert_select "form[action=?][method='post']", friend_request_path(dave_to_alice)
+    assert_select "a[href=?]", friend_request_path(dave_to_alice), "Delete Request" # delete link
+  end
+
+  test "should have buttons to revoke requests" do
+    get friend_requests_path
+    # alice's request to bob
+    alice_to_bob = friend_requests(:one)
+    assert_select "a[href=?]", friend_request_path(alice_to_bob), "Revoke Request" # revoke link
+  end
 end
