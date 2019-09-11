@@ -23,6 +23,19 @@ class FriendshipRequestsTest < ActionDispatch::IntegrationTest
     assert_select "form[action=?][method='post']", friend_requests_path
   end
 
+  test "send button should create a new request" do
+    get users_path
+    eric = users(:eric)
+    assert_difference "@alice.friend_requests.count", 1 do
+      assert_difference "eric.friend_offers.count", 1 do
+        post friend_requests_path, params: { friend_id: eric.id }
+      end
+    end
+    assert_redirected_to users_path
+    follow_redirect!
+    assert_no_match "Eric", response.body # removed from suggestions
+  end
+
   ## Sent/received friend requests
 
   test "should see Dave in request offers (received friend requests)" do
