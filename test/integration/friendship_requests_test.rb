@@ -66,4 +66,16 @@ class FriendshipRequestsTest < ActionDispatch::IntegrationTest
     alice_to_bob = friend_requests(:one)
     assert_select "a[href=?]", friend_request_path(alice_to_bob), "Revoke Request" # revoke link
   end
+
+  test "accepting offers should add friends, remove offers" do
+    fred_to_alice = friend_requests(:six)
+    assert_difference "@alice.friends.count", 1 do
+      assert_difference "@alice.friend_offers.pending.count", -1 do
+        patch friend_request_path(fred_to_alice), params: { accepted: true }
+      end
+    end
+    assert_redirected_to users_path
+    follow_redirect!
+    assert_no_match "Fred", response.body
+  end
 end
