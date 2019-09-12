@@ -21,6 +21,12 @@ class FriendRequestsController < ApplicationController
   def update
     friend_request = FriendRequest.find params[:id]
     friend_request.update_attributes(accepted: params[:accepted])
-    redirect_to users_path
+    redirect_to friend_requests_path
+  end
+
+  def destroy
+    friend_request = FriendRequest.find params[:id]
+    friend_request.destroy
+    redirect_to friend_requests_path
   end
 end

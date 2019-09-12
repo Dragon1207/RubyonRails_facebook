@@ -6,6 +6,8 @@ class FriendshipRequestsTest < ActionDispatch::IntegrationTest
   def setup
     @alice = users(:alice)
     sign_in @alice
+    @fred_to_alice = friend_requests(:six)
+    @alice_to_bob = friend_requests(:one)
   end
 
   ## Find (new) friends
@@ -53,29 +55,44 @@ class FriendshipRequestsTest < ActionDispatch::IntegrationTest
 
   test "should have buttons to accept and delete requests" do
     get friend_requests_path
-    # fred's request to alice
-    fred_to_alice = friend_requests(:six)
-    assert_select "form[action=?][method='post']", friend_request_path(fred_to_alice)
-    assert_select "form[action=?][method='post'] input[type=hidden][name=_method][value=patch]", friend_request_path(fred_to_alice)
-    assert_select "a[href=?]", friend_request_path(fred_to_alice), "Delete Request" # delete link
+    assert_select "form[action=?][method='post']", friend_request_path(@fred_to_alice)
+    assert_select "form[action=?][method='post'] input[type=hidden][name=_method][value=patch]", friend_request_path(@fred_to_alice)
+    assert_select "a[href=?]", friend_request_path(@fred_to_alice), "Delete Request" # delete link
   end
 
   test "should have buttons to revoke requests" do
     get friend_requests_path
-    # alice's request to bob
-    alice_to_bob = friend_requests(:one)
-    assert_select "a[href=?]", friend_request_path(alice_to_bob), "Revoke Request" # revoke link
+    assert_select "a[href=?]", friend_request_path(@alice_to_bob), "Revoke Request" # revoke link
   end
 
   test "accepting offers should add friends, remove offers" do
-    fred_to_alice = friend_requests(:six)
     assert_difference "@alice.friends.count", 1 do
       assert_difference "@alice.friend_offers.pending.count", -1 do
-        patch friend_request_path(fred_to_alice), params: { accepted: true }
+        patch friend_request_path(@fred_to_alice), params: { accepted: true }
       end
     end
-    assert_redirected_to users_path
+    assert_redirected_to friend_requests_path
     follow_redirect!
     assert_no_match "Fred", response.body
+  end
+
+  test "deleting should remove request" do
+    assert_difference "FriendRequest.count", -1 do
+      assert_difference "@alice.friend_offers.count", -1 do
+        delete friend_request_path(@fred_to_alice)
+      end
+    end
+    assert_redirected_to friend_requests_path
+    follow_redirect!
+    assert_no_match "Fred", response.body
+
+    assert_difference "FriendRequest.count", -1 do
+      assert_difference "@alice.friend_requests.count", -1 do
+        delete friend_request_path(@alice_to_bob)
+      end
+    end
+    assert_redirected_to friend_requests_path
+    follow_redirect!
+    assert_no_match "Bob", response.body
   end
 end
