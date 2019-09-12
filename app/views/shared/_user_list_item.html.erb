@@ -7,7 +7,7 @@
       <%= submit_tag "Send Friend Request" %>
     <% end %>
   <% when :accept %>
-    <%= form_with url: friend_request_path(request) do %>
+    <%= form_for request do %>
       <%= hidden_field_tag :accepted, true %>
       <%= submit_tag "Accept Friend Request" %>
     <% end %>

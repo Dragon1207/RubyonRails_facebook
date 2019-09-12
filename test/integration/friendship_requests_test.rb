@@ -55,6 +55,7 @@ class FriendshipRequestsTest < ActionDispatch::IntegrationTest
     # dave's request to alice
     dave_to_alice = friend_requests(:four)
     assert_select "form[action=?][method='post']", friend_request_path(dave_to_alice)
+    assert_select "form[action=?][method='post'] input[type=hidden][name=_method][value=patch]", friend_request_path(dave_to_alice)
     assert_select "a[href=?]", friend_request_path(dave_to_alice), "Delete Request" # delete link
   end
 
