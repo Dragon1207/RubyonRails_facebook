@@ -38,10 +38,11 @@ class FriendshipRequestsTest < ActionDispatch::IntegrationTest
 
   ## Sent/received friend requests
 
-  test "should see Dave in request offers (received friend requests)" do
+  test "should see Fred in request offers (received friend requests); shouldn't see Dave" do
     get friend_requests_path
     assert_response :success
-    assert_match "Dave", response.body
+    assert_match "Fred", response.body
+    assert_no_match "Dave", response.body
   end
 
   test "should see Bob and Carl in sent friend requests" do
@@ -52,11 +53,11 @@ class FriendshipRequestsTest < ActionDispatch::IntegrationTest
 
   test "should have buttons to accept and delete requests" do
     get friend_requests_path
-    # dave's request to alice
-    dave_to_alice = friend_requests(:four)
-    assert_select "form[action=?][method='post']", friend_request_path(dave_to_alice)
-    assert_select "form[action=?][method='post'] input[type=hidden][name=_method][value=patch]", friend_request_path(dave_to_alice)
-    assert_select "a[href=?]", friend_request_path(dave_to_alice), "Delete Request" # delete link
+    # fred's request to alice
+    fred_to_alice = friend_requests(:six)
+    assert_select "form[action=?][method='post']", friend_request_path(fred_to_alice)
+    assert_select "form[action=?][method='post'] input[type=hidden][name=_method][value=patch]", friend_request_path(fred_to_alice)
+    assert_select "a[href=?]", friend_request_path(fred_to_alice), "Delete Request" # delete link
   end
 
   test "should have buttons to revoke requests" do

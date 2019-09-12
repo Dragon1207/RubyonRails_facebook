@@ -24,3 +24,7 @@ dave:
 eric:
   name: "Eric"
   email: "eric@example.org"
+
+fred:
+  name: "Fred"
+  email: "fred@example.org"
