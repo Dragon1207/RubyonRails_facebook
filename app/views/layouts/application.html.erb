@@ -10,6 +10,8 @@
   </head>
 
   <body>
+    <%= render 'layouts/navbar' if current_user %>
+
     <% flash.each do |type, message| %>
       <%= content_tag :div, message, class: "flash #{type}" %>
     <% end %>
