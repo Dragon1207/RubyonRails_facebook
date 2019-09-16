@@ -15,9 +15,9 @@ class FriendshipRequestsTest < ActionDispatch::IntegrationTest
   test "should see eric in 'friend finder' (/users); shouldn't see bob; shouldn't see alice" do
     get users_path
     assert_response :success
-    assert_match "Eric", response.body
-    assert_no_match "Bob", response.body
-    assert_no_match "Alice", response.body
+    assert_select "li", text: "Eric"
+    assert_select "li", text: "Bob", count: 0
+    assert_select "li", text: "Alice", count: 0
   end
 
   test "should have buttons to send request" do

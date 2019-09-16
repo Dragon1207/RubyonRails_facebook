@@ -68,4 +68,10 @@ class UserTest < ActiveSupport::TestCase
   test "friends returns ActiveRecord relation of friends" do
     assert_equal 2, @alice.friends.count
   end
+
+  ## Strangers
+  test "should not contain Bob and Alice" do
+    assert_not @alice.strangers.include?(@bob)
+    assert_not @alice.strangers.include?(@alice)
+  end
 end
