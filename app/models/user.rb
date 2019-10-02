@@ -17,6 +17,8 @@ class User < ApplicationRecord
   has_many :friends_made, through: :friendships_made, source: :requestee
   has_many :friends_approved, through: :friendships_approved, source: :requester
 
+  has_many :posts, foreign_key: 'author_id'
+
   # user's friends
   def friends
     User.where(id: friendships_made.pluck(:requestee_id) + friendships_approved.pluck(:requester_id))
