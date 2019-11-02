@@ -3,3 +3,7 @@
 first_post:
   text: MyText
   author: alice
+
+post_2:
+  text: "Dave's post"
+  author: dave

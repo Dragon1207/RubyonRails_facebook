@@ -30,4 +30,9 @@ class User < ApplicationRecord
                        .where("requestee_id = #{id} OR requester_id = #{id}")
     User.where("id NOT IN (?) AND id != #{id}", ids)
   end
+
+  # Post feed: posts written by User and their friends in reverse chronological order
+  def post_feed
+    Post.where("author_id in (?)", friends.select(:id)).or(posts)
+  end
 end
