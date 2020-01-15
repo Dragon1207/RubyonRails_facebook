@@ -1,14 +1,35 @@
-# This file should contain all the record creation needed to seed the database with its default values.
-# The data can then be loaded with the rails db:seed command (or created alongside the database with db:setup).
-#
-# Examples:
-#
-#   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
-#   Character.create(name: 'Luke', movie: movies.first)
+## Users
 
-example = User.create(name: "Example User", email: "example@example.com", password: "password")
-test = User.create(name: "Test User", email: "test@example.com", password: "password")
-foo = User.create(name: "Foobar", email: "foobar@example.com", password: "foobar")
+# login user
+User.create(name: "Example User", email: "example@example.com", password: "password")
 
-example.friend_requests.create(requestee_id: test.id, accepted: true, accepted_on: Time.now)
-example.friend_requests.create(requestee_id: foo.id, accepted: false)
+# random users
+9.times {
+    User.create(name: Faker::Name.name,
+                email: Faker::Internet.unique.email,
+                password: Faker::Internet.password)
+}
+
+# friend requests
+User.all.each do |user|
+    people = User.where.not(id: user.id).sample(3)
+    people.each do |person|
+        if FriendRequest.where("requester_id = :rr_id AND requestee_id = :re_id", rr_id: user.id, re_id: person.id).empty?
+            FriendRequest.create(requester: user, requestee: person)
+        end
+    end
+end
+# accept friend requests
+FriendRequest.all.sample(FriendRequest.count/5*3).each { |f_request|
+    f_request.update_attributes( accepted: true,
+                                accepted_on: Time.now)
+}
+
+# posts
+User.all.each do |user|
+    10.times do
+        p = user.posts.create(text: Faker::Hipster.sentence)
+        random_time = rand(10).days.ago
+        p.update_attributes(created_at: random_time, updated_at: random_time)
+    end
+end

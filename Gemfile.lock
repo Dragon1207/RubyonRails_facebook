@@ -84,6 +84,8 @@ GEM
       warden (~> 1.2.3)
     erubi (1.8.0)
     execjs (2.7.0)
+    faker (2.10.1)
+      i18n (>= 1.6, < 2)
     ffi (1.11.1)
     formatador (0.2.5)
     globalid (0.4.2)
@@ -234,6 +236,7 @@ DEPENDENCIES
   chromedriver-helper
   coffee-rails (~> 4.2)
   devise
+  faker
   guard
   guard-minitest
   jbuilder (~> 2.5)
