@@ -3,7 +3,7 @@ class CreateFriendRequests < ActiveRecord::Migration[5.2]
     create_table :friend_requests do |t|
       t.integer :requester_id
       t.integer :requestee_id
-      t.boolean :accepted
+      t.boolean :accepted, default: false
       t.datetime :accepted_on
 
       t.timestamps

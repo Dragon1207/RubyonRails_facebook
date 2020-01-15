@@ -18,7 +18,7 @@ ActiveRecord::Schema.define(version: 2020_01_11_180748) do
   create_table "friend_requests", force: :cascade do |t|
     t.integer "requester_id"
     t.integer "requestee_id"
-    t.boolean "accepted"
+    t.boolean "accepted", default: false
     t.datetime "accepted_on"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
