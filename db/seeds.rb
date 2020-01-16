@@ -33,3 +33,12 @@ User.all.each do |user|
         p.update_attributes(created_at: random_time, updated_at: random_time)
     end
 end
+
+# likes
+
+User.all.each do |user|
+    feed = user.post_feed
+    to_like = feed.sample(rand(feed.length * 8 / 10))
+    to_like.each { |post| post.likes.create(user: user) }
+end
+    
