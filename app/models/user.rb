@@ -21,18 +21,23 @@ class User < ApplicationRecord
 
   # user's friends
   def friends
-    User.where(id: friendships_made.pluck(:requestee_id) + friendships_approved.pluck(:requester_id))
+    User.where("id IN (?)", friend_ids)
   end
 
   # user's friend recommendations
   def strangers
-    ids = FriendRequest.select("CASE WHEN requestee_id = #{id} THEN requester_id WHEN requester_id = #{id} THEN requestee_id END AS user_id")
-                       .where("requestee_id = #{id} OR requester_id = #{id}")
-    User.where("id NOT IN (?) AND id != #{id}", ids)
+    ids = FriendRequest.other_user_id(id)
+    User.where("id NOT IN (?) AND id != (?)", ids, id)
   end
 
   # Post feed: posts written by User and their friends in reverse chronological order
   def post_feed
-    Post.where("author_id in (?)", friends.select(:id)).or(posts)
+    Post.where("author_id IN (:friends_ids) OR author_id = :user_id", friends_ids: friend_ids, user_id: id)
   end
+
+  private
+
+    def friend_ids
+      FriendRequest.accepted.other_user_id(id)
+    end      
 end
