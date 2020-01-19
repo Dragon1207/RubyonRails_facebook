@@ -35,6 +35,7 @@ class User < ApplicationRecord
     Post.where("author_id IN (:friends_ids) OR author_id = :user_id", friends_ids: friend_ids, user_id: id)
       .add_like_count
       .order(created_at: :DESC)
+      .includes(:author)
   end
 
   private
