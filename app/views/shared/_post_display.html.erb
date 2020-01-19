@@ -1,0 +1,14 @@
+<div class="post-display">
+    <div class="byline">
+        <span class="user-name"><%= link_to post.author.name, user_path(post.author) %></span> at <span class="date-time"><%= time_tag(post.created_at) %></span>
+    </div>
+    <div class="post-content">
+        <%= post.text %>
+    </div>
+    <div class="post-buttons">
+        <%= form_for :like, url: post_likes_path(post.id) do |f| %>
+            <%= f.submit "Like" %>
+        <% end %>
+        <%= pluralize(post.like_count, 'like') %>
+    </div>
+</div>

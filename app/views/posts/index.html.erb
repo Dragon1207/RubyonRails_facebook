@@ -1,7 +1,5 @@
 <h1>Posts#index</h1>
 <%= render 'shared/post_form' %>
 <% @posts.each do |post| %>
-  <div class="">
-    <%= post.text %>
-  </div>
+  <%= render 'shared/post_display', post: post %>
 <% end %>
