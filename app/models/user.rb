@@ -33,6 +33,7 @@ class User < ApplicationRecord
   # Post feed: posts written by User and their friends in reverse chronological order
   def post_feed
     Post.where("author_id IN (:friends_ids) OR author_id = :user_id", friends_ids: friend_ids, user_id: id)
+      .add_like_count
   end
 
   private

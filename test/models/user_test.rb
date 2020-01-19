@@ -74,4 +74,18 @@ class UserTest < ActiveSupport::TestCase
     assert_not @alice.strangers.include?(@bob)
     assert_not @alice.strangers.include?(@alice)
   end
+
+  ## Post feed
+
+  test "should get post feed" do
+    assert_not_nil @alice.post_feed
+    assert_not_nil @bob.post_feed
+    assert_not_nil @carl.post_feed
+    assert_not_nil @dave.post_feed
+  end
+
+  test "should have like count in feed" do
+    feed = @alice.post_feed
+    feed.each { |post| assert_not_nil post.like_count }
+  end
 end
