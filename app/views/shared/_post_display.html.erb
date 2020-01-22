@@ -7,7 +7,11 @@
     </div>
     <div class="post-buttons">
         <%= form_for :like, url: post_likes_path(post.id) do |f| %>
+            <% unless post.user_likes > 0 %>
             <%= f.submit "Like" %>
+            <% else %>
+            <span>Liked</span>
+            <% end %>
         <% end %>
         <%= pluralize(post.like_count, 'like') %>
     </div>
