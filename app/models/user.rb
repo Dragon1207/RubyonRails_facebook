@@ -33,10 +33,13 @@ class User < ApplicationRecord
   # Post feed: posts written by User and their friends in reverse chronological order
   # Adds attributes for number of likes (like_count), is it liked by some User (user_likes)
   def post_feed
-    Post.where("author_id IN (:friends_ids) OR author_id = :user_id", friends_ids: friend_ids, user_id: id)
-      .add_like_count
-      .select("COUNT(ul.user_id) AS user_likes")
+    Post.select("posts.*",
+                "COUNT(likes.user_id) AS like_count",
+                "COUNT(ul.user_id) AS user_likes")
+      .left_joins(:likes)
       .joins("LEFT JOIN likes ul ON ul.post_id=posts.id AND ul.user_id=#{id}")
+      .where("author_id IN (:friends_ids) OR author_id = :user_id", friends_ids: friend_ids, user_id: id)
+      .group(:id)
       .order(created_at: :DESC)
       .includes(:author)
   end
