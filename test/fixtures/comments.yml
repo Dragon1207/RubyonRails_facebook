@@ -1,0 +1,9 @@
+one:
+  post: first_post
+  author: carl
+  text: Carl's comment on Alice's post
+
+two:
+  post: first_post
+  author: alice
+  text: Alice's comment on her own post
