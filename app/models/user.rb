@@ -19,6 +19,8 @@ class User < ApplicationRecord
 
   has_many :posts, foreign_key: 'author_id'
 
+  has_many :comments, foreign_key: 'author_id', dependent: :destroy, inverse_of: :author
+
   # user's friends
   def friends
     User.where("id IN (?)", friend_ids)

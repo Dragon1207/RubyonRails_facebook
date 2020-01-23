@@ -13,6 +13,8 @@ class PostTest < ActiveSupport::TestCase
     assert_equal users(:alice), posts(:first_post).author
   end
 
+  ## Likes
+
   test "should have likes" do
     assert_not_nil posts(:first_post).likes
   end
@@ -25,6 +27,25 @@ class PostTest < ActiveSupport::TestCase
       assert_difference "Like.count", -1 do
         post.destroy
       end
+    end
+  end
+
+  ## Comments
+
+  test "should have comments" do
+    assert_not_nil posts(:first_post).comments
+    assert posts(:first_post).comments.include?(comments(:one))
+    assert posts(:first_post).comments.include?(comments(:two))
+  end
+
+  test "should remove comments when deleted" do
+    post = users(:alice).posts.create(text: "Temp post")
+
+    post.comments.create(author: users(:bob), text: "Nice post!")
+    post.comments.create(author: users(:bob), text: "Well done! (y)")
+
+    assert_difference 'Comment.count', -2 do
+      post.destroy
     end
   end
 end

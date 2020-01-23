@@ -1,4 +1,5 @@
 require 'test_helper'
+require 'faker'
 
 class UserTest < ActiveSupport::TestCase
   def setup
@@ -87,5 +88,20 @@ class UserTest < ActiveSupport::TestCase
   test "should have like count in feed" do
     feed = @alice.post_feed
     feed.each { |post| assert_not_nil post.like_count }
+  end
+
+  ## Written comments
+
+  test "should be able to get to comments" do
+    comms = @carl.comments.map(&:text)
+    assert comms.include?("Carl's comment on Alice's post")
+  end
+
+  test "should remove comments when deleted" do
+    user = User.create!(name: Faker::Name.name, email: Faker::Internet.email, password: Faker::Internet.password)
+    posts(:first_post).comments.create(author: user, text: "soon to be removed")
+    assert_difference 'Comment.count', -1 do
+      user.destroy
+    end
   end
 end
