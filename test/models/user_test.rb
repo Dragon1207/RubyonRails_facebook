@@ -7,6 +7,8 @@ class UserTest < ActiveSupport::TestCase
     @bob   = users(:bob)
     @carl  = users(:carl)
     @dave  = users(:dave)
+
+    @feed = @alice.post_feed
   end
 
   test "should validate attributes; empty are invalid" do
@@ -86,8 +88,39 @@ class UserTest < ActiveSupport::TestCase
   end
 
   test "should have like count in feed" do
-    feed = @alice.post_feed
-    feed.each { |post| assert_not_nil post.like_count }
+    @feed.each { |post| assert_not_nil post.like_count }
+  end
+
+  test "should have comment count in feed" do
+    @feed.each { |post| assert_not_nil post.comment_count }
+  end
+
+  test "should have correct comment count in feed" do
+    @feed.each do |post|
+      assert_equal post.comments.count, post.comment_count
+    end
+  end
+
+  test "should have first comment on post" do
+    assert @feed.include?(posts(:first_post))
+    @feed.each do |post|
+      if post.comment_count > 0
+        first = post.comments.sort { |a,b| a.created_at <=> b.created_at } [0]
+        assert_equal first.text, post.first_comment
+      else
+        assert_nil post.first_comment
+      end
+    end
+  end
+
+  test "should have first comment author's name and id" do
+    @feed.each do |post|
+      if post.comment_count > 0
+        first = post.comments.sort { |a,b| a.created_at <=> b.created_at } [0]
+        assert_equal first.author.name, post.commentator_name
+        assert_equal first.author.id, post.commentator_id
+      end
+    end
   end
 
   ## Written comments
