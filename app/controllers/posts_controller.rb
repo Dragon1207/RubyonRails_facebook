@@ -3,6 +3,11 @@ class PostsController < ApplicationController
     @posts = current_user.post_feed
   end
 
+  def show
+    @post = Post.find(params[:id])
+    @comments = @post.comments.includes(:author)
+  end
+
   def create
     new_post = current_user.posts.build(safe_params)
     if new_post.save
