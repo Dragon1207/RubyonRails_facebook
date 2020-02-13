@@ -2,7 +2,7 @@
     <%= link_to comment.author.name, user_path(comment.author) %>
     <%= time_tag(comment.created_at) %>
     <% if comment.author == current_user %>
-        <%= link_to "delete", post_comment_path(@post, comment),
+        <%= link_to "delete", comment_path(comment),
                                 method: :delete,
                                 data: { confirm: "You sure?" } %>
     <% end %>

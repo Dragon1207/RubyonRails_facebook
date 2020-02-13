@@ -11,12 +11,11 @@ class CommentsController < ApplicationController
     end
 
     def destroy
-        post = Post.find_by(id: params[:post_id])
-        comment = post.comments.find(params[:id])
+        comment = Comment.find(params[:id])
 
         if comment.author_id == current_user.id
             comment.destroy
         end
-        redirect_to post_url(post)
+        redirect_to request.referer || root_url
     end
 end

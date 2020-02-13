@@ -25,7 +25,7 @@ class ShowPostPageTest < ActionDispatch::IntegrationTest
       assert_match CGI::escapeHTML(comment.author.name), response.body  # comment author
       assert_select ".comment a[href=?]", user_path(comment.author)     # link to comment author
       assert_match CGI::escapeHTML(comment.text), response.body         # comment text
-      assert_select "a[href=?]", post_comment_path(post, comment),
+      assert_select "a[href=?]", comment_path(comment),
           text: "delete",
           count: comment.author == users(:dave) ? 1 : 0                 # link to delete comment
     end

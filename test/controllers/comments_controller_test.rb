@@ -22,7 +22,7 @@ class CommentsControllerTest < ActionDispatch::IntegrationTest
     comment = @post.comments.where(author: @user).order(created_at: :desc).first
 
     assert_difference '@post.comments.count', -1 do
-      delete post_comment_path(@post, comment) # remove comment
+      delete comment_path(comment) # remove comment
     end
     assert_response :redirect
   end
@@ -32,7 +32,7 @@ class CommentsControllerTest < ActionDispatch::IntegrationTest
     post = comment.post
 
     assert_no_difference 'post.comments.count' do
-      delete post_comment_path(post, comment) # try to remove
+      delete comment_path(comment) # try to remove
     end
     assert_response :redirect
   end
