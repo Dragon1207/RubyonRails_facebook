@@ -35,28 +35,15 @@ class User < ApplicationRecord
   # Post feed: posts written by User and their friends in reverse chronological order
   # Adds attributes for number of likes (like_count), is it liked by some User (user_likes)
   def post_feed
-    first_comment_subquery = Comment.select(:id)
-                                    .where("comments_full.post_id = posts.id")
-                                    .order(created_at: :asc)
-                                    .limit(1)
-                                    .to_sql
-
     Post.select("posts.*",
                 "COUNT(likes.user_id) AS like_count",
-                "COUNT(ul.user_id) AS user_likes",
-                "COUNT(comments.id) AS comment_count",
-                "MAX(comments_full.text) AS first_comment",
-                "MAX(comments_full.author_id) AS commentator_id",
-                "MAX(commentators.name) AS commentator_name")
+                "COUNT(ul.user_id) AS user_likes")
       .left_joins(:likes)
       .joins("LEFT JOIN likes ul ON ul.post_id=posts.id AND ul.user_id=#{id}")
-      .left_joins(:comments)
-      .joins("LEFT JOIN comments comments_full ON comments_full.post_id = posts.id AND comments_full.id = (#{first_comment_subquery})")
-      .joins("LEFT JOIN users commentators ON commentators.id = comments_full.author_id")
       .where("posts.author_id IN (:friends_ids) OR posts.author_id = :user_id", friends_ids: friend_ids, user_id: id)
       .group(:id)
       .order(created_at: :DESC)
-      .includes(:author)
+      .includes(:author, comments: :author)
   end
 
   private

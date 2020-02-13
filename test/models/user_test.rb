@@ -91,36 +91,8 @@ class UserTest < ActiveSupport::TestCase
     @feed.each { |post| assert_not_nil post.like_count }
   end
 
-  test "should have comment count in feed" do
-    @feed.each { |post| assert_not_nil post.comment_count }
-  end
-
-  test "should have correct comment count in feed" do
-    @feed.each do |post|
-      assert_equal post.comments.count, post.comment_count
-    end
-  end
-
-  test "should have first comment on post" do
-    assert @feed.include?(posts(:first_post))
-    @feed.each do |post|
-      if post.comment_count > 0
-        first = post.comments.sort { |a,b| a.created_at <=> b.created_at } [0]
-        assert_equal first.text, post.first_comment
-      else
-        assert_nil post.first_comment
-      end
-    end
-  end
-
-  test "should have first comment author's name and id" do
-    @feed.each do |post|
-      if post.comment_count > 0
-        first = post.comments.sort { |a,b| a.created_at <=> b.created_at } [0]
-        assert_equal first.author.name, post.commentator_name
-        assert_equal first.author.id, post.commentator_id
-      end
-    end
+  test "should have comments in feed" do
+    @feed.each { |post| assert_not_nil post.comments }
   end
 
   ## Written comments
