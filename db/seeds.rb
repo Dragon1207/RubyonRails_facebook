@@ -29,7 +29,7 @@ FriendRequest.all.sample(FriendRequest.count/5*3).each { |f_request|
 User.all.each do |user|
     10.times do
         p = user.posts.create(text: Faker::Hipster.sentence)
-        random_time = rand(10).days.ago
+        random_time = rand(10).days.ago - rand(12).hours - rand(60).minutes 
         p.update_attributes(created_at: random_time, updated_at: random_time)
     end
 end
@@ -41,4 +41,15 @@ User.all.each do |user|
     to_like = feed.sample(rand(feed.length * 8 / 10))
     to_like.each { |post| post.likes.create(user: user) }
 end
-    
+
+# comments
+User.all.each do |user|
+    feed = user.post_feed.load
+    some_posts = feed.sample(feed.size/2)
+    some_posts.each do |post|
+        random_time = post.created_at + rand(5).days + rand(24).hours + rand(60).minutes 
+        comment = post.comments.create(author: user, text: Faker::Movie.quote)
+        comment.update_attributes(created_at: random_time, updated_at: random_time)
+    end
+end
+         
