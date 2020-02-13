@@ -7,3 +7,8 @@ two:
   post: first_post
   author: alice
   text: Alice's comment on her own post
+
+three:
+  post: first_post
+  author: dave
+  text: Nice!
