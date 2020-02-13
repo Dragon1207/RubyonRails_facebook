@@ -1,0 +1,5 @@
+<div class="comment">
+    <%= link_to comment.author.name, user_path(comment.author) %>
+    <%= time_tag(comment.created_at) %>
+    <p><%= comment.text%></p>
+</div>

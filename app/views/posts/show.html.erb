@@ -7,9 +7,4 @@
     <%= f.text_area :text %>
     <%= f.submit 'Comment' %>
 <% end %>
-<% @comments.each do |comment| %>
-    <div class="comment">
-        <%= link_to comment.author.name, user_path(comment.author) %>
-        <%= comment.text%>
-    </div>
-<% end %>
+<%= render @comments %>
