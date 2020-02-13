@@ -26,6 +26,12 @@ class PostIndexTimelineFeedTest < ActionDispatch::IntegrationTest
     feed.each do |post|
       assert_match CGI::escapeHTML(post.author.name), response.body
       assert_match CGI::escapeHTML(post.text), response.body
+
+      # should display comments
+      post.comments.each do |comment|
+        assert_match CGI::escapeHTML(comment.author.name), response.body
+        assert_match CGI::escapeHTML(comment.text), response.body
+      end
     end
     # and like button and comment button
     assert_select '.post-buttons > form'

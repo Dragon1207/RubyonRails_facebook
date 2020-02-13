@@ -3,7 +3,7 @@
         <span class="user-name"><%= link_to post.author.name, user_path(post.author) %></span> at <span class="date-time"><%= time_tag(post.created_at) %></span>
     </div>
     <div class="post-content">
-        <%= post.text %>
+        <p><%= post.text %></p>
     </div>
     <div class="post-buttons">
         <%= form_for :like, url: post_likes_path(post.id) do |f| %>
@@ -13,6 +13,11 @@
             <span>Liked</span>
             <% end %>
         <% end %>
-        <%= pluralize(post.like_count, 'like') %>
+        <%= pluralize(post.like_count, 'like') %> <%= pluralize(post.comments.size, 'comment') %>
     </div>
+    <%= render post.comments %>
+    <%= form_with url: post_comments_url(post) do |f| %>
+        <%= f.text_area :text %>
+        <%= f.submit 'Comment' %>
+    <% end %>
 </div>
