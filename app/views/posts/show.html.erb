@@ -1,10 +1,1 @@
-<%= link_to @post.author.name %> at <%= time_tag(@post.created_at) %>
-<div>
-    <%= @post.text %>
-</div>
-<div><%= pluralize(@post.likes.count, 'like') %> <%= pluralize(@comments.length, 'comments') %></div>
-<%= form_with url: post_comments_url(@post) do |f| %>
-    <%= f.text_area :text %>
-    <%= f.submit 'Comment' %>
-<% end %>
-<%= render @comments %>
+<%= render 'shared/post_display', post: @posts.first %>

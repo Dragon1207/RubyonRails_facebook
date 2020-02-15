@@ -4,8 +4,14 @@ class PostsController < ApplicationController
   end
 
   def show
-    @post = Post.find(params[:id])
-    @comments = @post.comments.includes(:author)
+    @posts = Post.select("posts.*",
+      "COUNT(likes.user_id) AS like_count",
+      "COUNT(ul.user_id) AS user_likes")
+      .left_joins(:likes)
+      .joins("LEFT JOIN likes ul ON ul.post_id=posts.id AND ul.user_id=#{current_user.id}")
+      .where(id: params[:id])
+      .group(:id)
+      .includes(:author, comments: :author)
   end
 
   def create
