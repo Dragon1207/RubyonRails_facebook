@@ -5,7 +5,8 @@ class ShowPostPageTest < ActionDispatch::IntegrationTest
 
   test "show post" do
     # sign in
-    sign_in users(:dave)
+    user = users(:dave)
+    sign_in user
 
 
     post = posts(:first_post)
@@ -20,6 +21,13 @@ class ShowPostPageTest < ActionDispatch::IntegrationTest
     assert_match CGI::escapeHTML(post.text), response.body                # text
     assert_match "#{post.likes.count} like", response.body                # like count
 
+    ## like buttons
+    unless post.likes.map(&:user_id).include?(user.id)
+      assert_select "form[action=?]", post_likes_path(post)               # like
+    else
+      assert_select "a[href=?]", post_like_path(post, 0), text: "Liked"    # remove like
+    end
+
     ## comments
     post.comments.each do |comment|
       assert_match CGI::escapeHTML(comment.author.name), response.body  # comment author
@@ -27,7 +35,7 @@ class ShowPostPageTest < ActionDispatch::IntegrationTest
       assert_match CGI::escapeHTML(comment.text), response.body         # comment text
       assert_select "a[href=?]", comment_path(comment),
           text: "delete",
-          count: comment.author == users(:dave) ? 1 : 0                 # link to delete comment
+          count: comment.author == user ? 1 : 0                 # link to delete comment
     end
 
     ## form to add a comment

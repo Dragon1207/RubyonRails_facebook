@@ -6,12 +6,13 @@
         <p><%= post.text %></p>
     </div>
     <div class="post-buttons">
+        <% unless post.user_likes > 0 %>
         <%= form_for :like, url: post_likes_path(post.id) do |f| %>
-            <% unless post.user_likes > 0 %>
             <%= f.submit "Like" %>
-            <% else %>
-            <span>Liked</span>
-            <% end %>
+        <% end %>
+        <% else %>
+            <%= link_to "Liked", post_like_path(post, 0),
+                                    method: :delete %>
         <% end %>
         <%= pluralize(post.like_count, 'like') %> <%= pluralize(post.comments.size, 'comment') %>
     </div>
