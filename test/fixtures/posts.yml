@@ -7,3 +7,7 @@ first_post:
 post_2:
   text: "Dave's post"
   author: dave
+
+bobs_post_1:
+  text: Hello World
+  author: bob

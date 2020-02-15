@@ -95,6 +95,24 @@ class UserTest < ActiveSupport::TestCase
     @feed.each { |post| assert_not_nil post.comments }
   end
 
+  test "alice should have own posts in feed" do
+    @alice.posts.each do |post|
+      assert @feed.include?(post)
+    end
+  end
+
+  test "alice should have dave's posts in feed" do
+    @dave.posts.each do |post|
+      assert @feed.include?(post)
+    end
+  end
+
+  test "alice should not have bob's posts in feed" do
+    @bob.posts.each do |post|
+      assert_not @feed.include?(post)
+    end
+  end
+
   ## Written comments
 
   test "should be able to get to comments" do
