@@ -1,6 +1,11 @@
 <div class="post-display">
     <div class="byline">
-        <span class="user-name"><%= link_to post.author.name, user_path(post.author) %></span> at <span class="date-time"><%= time_tag(post.created_at) %></span>
+        <span class="user-name"><%= link_to post.author.name, user_path(post.author) %></span> at
+        <span class="date-time">
+            <%= link_to post_path(post) do %>
+            <%= time_tag(post.created_at) %>
+            <% end %>
+        </span>
     </div>
     <div class="post-content">
         <p><%= post.text %></p>

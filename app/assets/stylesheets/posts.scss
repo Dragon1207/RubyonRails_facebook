@@ -1,3 +1,24 @@
 // Place all the styles related to the Posts controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+
+.post-display {
+    font-size: 12pt;
+    margin-top: 15px;
+
+    .post-buttons form {
+        display: inline-block;
+    }
+
+    .comment {
+        font-size: 10pt;
+
+        time {
+            color: gray;
+        }
+    }
+
+    .comment, > form {
+        padding-left: 40px;
+    }
+}
