@@ -2,19 +2,10 @@
   <%= user.name %>
   <% case type %>
   <% when :send %>
-    <%= form_with url: friend_requests_path do %>
-      <%= hidden_field_tag :friend_id, user.id %>
-      <%= submit_tag "Send Friend Request" %>
-    <% end %>
+    <%= render 'shared/send_request_button', user: user %>
   <% when :accept %>
-    <%= form_for request do %>
-      <%= hidden_field_tag :accepted, true %>
-      <%= submit_tag "Accept Friend Request" %>
-    <% end %>
-    <%= link_to "Delete Request", friend_request_path(request), method: :delete,
-                                      data: { confirm: "You sure?" } %>
+    <%= render 'shared/accept_request_button', request: request %>
   <% when :revoke %>
-    <%= link_to "Revoke Request", friend_request_path(request), method: :delete,
-                                      data: { confirm: "You sure?" } %>
+    <%= render 'shared/revoke_request_button', request: request %>
   <% end %>
 </li>
