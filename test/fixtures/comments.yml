@@ -12,3 +12,13 @@ three:
   post: first_post
   author: dave
   text: Nice!
+
+_4:
+  post: freds_post_1
+  author: fred
+  text: I'm the best!
+
+_5:
+  post: freds_post_1
+  author: eric
+  text: LOL

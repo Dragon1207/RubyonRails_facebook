@@ -39,7 +39,7 @@ class ShowPostPageTest < ActionDispatch::IntegrationTest
     end
 
     ## form to add a comment
-    assert_select "form[action=?]", post_comments_url(post)
-    assert_select "form[action=?] textarea", post_comments_url(post)
+    assert_select "form[action=?]", post_comments_path(post)
+    assert_select "form[action=?] textarea", post_comments_path(post)
   end
 end

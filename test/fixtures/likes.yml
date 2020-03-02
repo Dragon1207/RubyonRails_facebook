@@ -7,3 +7,11 @@ one:
 two:
   post: post_2
   user: bob
+
+_3:
+  post: erics_post_1
+  user: alice
+
+_4:
+  post: freds_post_1
+  user: fred

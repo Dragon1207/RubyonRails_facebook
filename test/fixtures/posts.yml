@@ -11,3 +11,15 @@ post_2:
 bobs_post_1:
   text: Hello World
   author: bob
+
+erics_post_1:
+  text: Hello World - Eric
+  author: eric
+
+freds_post_1:
+  text: Hello World - Fred
+  author: fred
+
+carls_post_1:
+  text: Hello World - Carl
+  author: carl
