@@ -1,3 +1,24 @@
-<h1>Users#show</h1>
-<p>Find me in app/views/users/show.html.erb</p>
-<%= render 'shared/post_form' %>
+<div class="<%= 'own-profile' if @user == current_user %> profile">
+    <%= gravatar_for(@user) %>
+    <h1><%= @user.name %></h1>
+    <% unless @user == current_user %>
+        <% if @request %>
+            <% if @request.accepted %>
+                <%= link_to "Remove from Friends", friend_request_path(@request), method: :delete,
+                                        data: { confirm: "Are you sure?" } %>
+            <% else %>
+                <% if @request.requester == current_user %>
+                    <%= render 'shared/revoke_request_button', request: @request %>
+                <% else %>
+                    <%= render 'shared/accept_request_button', request: @request %>
+                <% end %>
+            <% end %>
+        <% else %>
+            <%= render 'shared/send_request_button', user: @user %>
+        <% end %>
+    <% end %>
+</div>
+<%= render 'shared/post_form' if @user == current_user%>
+<% @posts.each do |post| %>
+    <%= render 'shared/post_display', post: post %>
+<% end %>

@@ -46,6 +46,22 @@ class User < ApplicationRecord
       .includes(:author, comments: :author)
   end
 
+  # User's posts: Post written by User
+  # Adds attributes for number of likes (like_count), is it liked by some User (user_likes)
+  def own_posts
+    # copied from post_feed
+    # TODO: refactor
+    Post.select("posts.*",
+                "COUNT(likes.user_id) AS like_count",
+                "COUNT(ul.user_id) AS user_likes")
+      .left_joins(:likes)
+      .joins("LEFT JOIN likes ul ON ul.post_id=posts.id AND ul.user_id=#{id}")
+      .where("posts.author_id = :user_id", user_id: id)
+      .group(:id)
+      .order(created_at: :DESC)
+      .includes(:author, comments: :author)
+  end
+
   private
 
     def friend_ids

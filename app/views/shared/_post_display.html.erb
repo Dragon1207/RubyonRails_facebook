@@ -22,7 +22,7 @@
         <%= pluralize(post.like_count, 'like') %> <%= pluralize(post.comments.size, 'comment') %>
     </div>
     <%= render post.comments %>
-    <%= form_with url: post_comments_url(post) do |f| %>
+    <%= form_with url: post_comments_path(post) do |f| %>
         <%= f.text_area :text %>
         <%= f.submit 'Comment' %>
     <% end %>
