@@ -28,3 +28,6 @@
 
 # Ignore Spring files.
 /spring/*.pid
+
+# Ignore environment variables script
+/env-vars.sh
