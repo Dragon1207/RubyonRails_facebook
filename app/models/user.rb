@@ -4,6 +4,9 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
 
+  # Make omniauthable
+  devise :omniauthable, omniauth_providers: %i[facebook]
+
   validates :name, presence: true
 
   # Active record relations
@@ -60,6 +63,15 @@ class User < ApplicationRecord
       .group(:id)
       .order(created_at: :DESC)
       .includes(:author, comments: :author)
+  end
+
+  # Get user from omniauth hash
+  def self.from_omniauth(auth)
+    where(provider: auth.provider, uid: auth.uid).first_or_create do |user|
+      user.email = auth.info.email
+      user.password = Devise.friendly_token[0, 20]
+      user.name = auth.info.name
+    end
   end
 
   private
