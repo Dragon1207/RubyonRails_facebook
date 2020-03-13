@@ -20,6 +20,9 @@ Then,
 # Install gems
 bundle install
 
+# Create database
+rails db:create
+
 # Initialize database
 rails db:schema:load
 
