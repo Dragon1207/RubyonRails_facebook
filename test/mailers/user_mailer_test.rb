@@ -16,5 +16,6 @@ class UserMailerTest < ActionMailer::TestCase
     assert_equal [test_user.email], email.to
     assert_equal 'Welcome to TITLE', email.subject
     assert_equal read_fixture('welcome.text').join, email.text_part.body.to_s
+    assert_equal read_fixture('welcome.html').join.gsub(/\s+/, ' '), email.html_part.body.to_s.gsub(/\s+/, ' ')
   end
 end
