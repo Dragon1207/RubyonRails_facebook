@@ -1,8 +1,10 @@
 <dir class="navbar">
-  <%= link_to "Home", root_path %>
+  <%= link_to "Phacepook", root_path %>
+  <%  if current_user %>
   <%= link_to "Find Friends", users_path %>
   <%= link_to "(#{current_user.friend_offers.pending.load.size}) Friend " + "Request".pluralize(current_user.friend_offers.pending.size),
               friend_requests_path %>
   Signed in as <%= link_to current_user.name, user_path(current_user) %>
   (<%= link_to "Sign out", destroy_user_session_path, method: :delete %>)
+  <% end %>
 </dir>
