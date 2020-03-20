@@ -14,7 +14,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
     super
     
     if @user.persisted?
-      UserMailer.welcome_mail(@user).deliver_later
+      UserMailer.welcome_mail(@user).deliver_now
     end
   end
 

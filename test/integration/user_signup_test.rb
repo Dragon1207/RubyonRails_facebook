@@ -31,7 +31,7 @@ class UserSignupTest < ActionDispatch::IntegrationTest
   end
 
   test "sign up sends a welcome mail" do
-    assert_enqueued_emails 1 do
+    assert_emails 1 do
       post user_registration_path, params:{ user: @new_user_data }
     end
   end
