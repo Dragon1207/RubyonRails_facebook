@@ -53,10 +53,10 @@ class FriendshipRequestsTest < ActionDispatch::IntegrationTest
     assert_no_match "Dave", response.body
   end
 
-  test "should see Bob and Carl in sent friend requests" do
+  test "Bob is listed in sent friend requests; Carl isn't" do
     get friend_requests_path
     assert_match "Bob", response.body
-    assert_match "Carl", response.body
+    assert_no_match "Carl", response.body
   end
 
   test "should have buttons to accept and delete requests" do
