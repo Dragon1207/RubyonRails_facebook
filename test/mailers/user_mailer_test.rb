@@ -12,9 +12,9 @@ class UserMailerTest < ActionMailer::TestCase
     end
 
     # Test the body of the sent email contains what we expect it to
-    assert_equal ['noreply@title.example.org'], email.from
+    assert_equal ['noreply@example.org'], email.from
     assert_equal [test_user.email], email.to
-    assert_equal 'Welcome to TITLE', email.subject
+    assert_equal 'Welcome to Phacepook', email.subject
     assert_equal read_fixture('welcome.text').join, email.text_part.body.to_s
     assert_equal read_fixture('welcome.html').join.gsub(/\s+/, ' '), email.html_part.body.to_s.gsub(/\s+/, ' ')
   end
