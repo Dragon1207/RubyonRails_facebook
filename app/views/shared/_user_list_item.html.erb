@@ -1,5 +1,5 @@
 <li>
-  <%= user.name %>
+  <%= link_to user.name, user_path(user) %>
   <% case type %>
   <% when :send %>
     <%= render 'shared/send_request_button', user: user %>
