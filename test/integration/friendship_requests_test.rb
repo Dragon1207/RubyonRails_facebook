@@ -6,6 +6,11 @@ class FriendshipRequestsTest < ActionDispatch::IntegrationTest
   def setup
     @alice = users(:alice)
     sign_in @alice
+
+    @eric = users(:eric)  # no friend req. relation
+    @fred = users(:fred)  # asked alice to be friends
+    @bob  = users(:bob)   # was asked by alice
+
     @fred_to_alice = friend_requests(:six)
     @alice_to_bob = friend_requests(:one)
   end
@@ -95,5 +100,70 @@ class FriendshipRequestsTest < ActionDispatch::IntegrationTest
     assert_redirected_to friend_requests_path
     follow_redirect!
     assert_no_match "Bob", response.body
+  end
+
+  ## On user's profile
+  test "stranger's profile has buttons to send request" do
+    get user_path(@eric)
+    assert_select "form[action=?][method='post']", friend_requests_path
+  end
+
+  test "requester's profile has buttons to accept and delete request" do
+    get user_path(@fred)
+    assert_select "form[action=?][method='post']", friend_request_path(@fred_to_alice)
+    assert_select "form[action=?][method='post'] input[type=hidden][name=_method][value=patch]", friend_request_path(@fred_to_alice)
+    assert_select "a[href=?]", friend_request_path(@fred_to_alice), "Delete Request" # delete link
+  end
+
+  test "requestee's profile has buttons to revoke request" do
+    get user_path(@bob)
+    assert_select "a[href=?]", friend_request_path(@alice_to_bob), "Revoke Request" # revoke link
+  end
+
+  ## Redirects
+  test "user is redirected back to the original page: find friends page" do
+    get users_path
+
+    post friend_requests_path, params: { friend_id: @eric.id }
+    assert_redirected_to users_path
+    follow_redirect!
+  end
+
+  test "user is redirected to the original page: friend requests page" do
+    get friend_requests_path
+    
+    patch friend_request_path(@fred_to_alice), params: { accepted: true }
+    assert_redirected_to friend_requests_path
+    follow_redirect!
+
+    delete friend_request_path(@alice_to_bob) 
+    assert_redirected_to friend_requests_path
+    follow_redirect!
+  end
+
+  test "user id redirected to the original page: other user's profile page" do
+    actions = { @eric => {
+                  method: :post,
+                  args: [friend_requests_path, {params: { friend_id: @eric.id }}]
+                },
+                @fred => {
+                  method: :patch,
+                  args: [friend_request_path(@fred_to_alice), {params: { accepted: true }}]
+                },
+                @bob => {
+                  method: :delete,
+                  args: [friend_request_path(@alice_to_bob), {}]
+                }
+              }
+    
+    actions.each do |user, action|          
+      method = action[:method]
+      args = action[:args]
+      args[1][:headers] = {referer: user_path(user)}
+      
+      get user_path(user)
+      send(action[:method], *args)
+      assert_redirected_to user_path(user)
+    end
   end
 end

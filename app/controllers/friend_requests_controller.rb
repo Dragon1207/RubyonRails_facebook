@@ -13,7 +13,7 @@ class FriendRequestsController < ApplicationController
     if friend_request.save
       friend = User.find(params[:friend_id])
       flash[:success] = "Friend request sent to #{friend.name}."
-      redirect_to users_path
+      redirect_back fallback_location: users_path
     else
       flash.now[:error] = "An error has occured"
     end
@@ -22,12 +22,12 @@ class FriendRequestsController < ApplicationController
   def update
     friend_request = FriendRequest.find params[:id]
     friend_request.update_attributes(accepted: params[:accepted])
-    redirect_to friend_requests_path
+    redirect_back fallback_location: friend_requests_path
   end
 
   def destroy
     friend_request = FriendRequest.find params[:id]
     friend_request.destroy
-    redirect_to friend_requests_path
+    redirect_back fallback_location: friend_requests_path
   end
 end
