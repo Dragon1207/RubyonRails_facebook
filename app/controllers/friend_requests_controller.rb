@@ -11,7 +11,8 @@ class FriendRequestsController < ApplicationController
   def create
     friend_request = current_user.friend_requests.build(requestee_id: params[:friend_id], accepted: false)
     if friend_request.save
-      flash[:success] = "Friend request sent to #{User.find(params[:friend_id])}."
+      friend = User.find(params[:friend_id])
+      flash[:success] = "Friend request sent to #{friend.name}."
       redirect_to users_path
     else
       flash.now[:error] = "An error has occured"

@@ -35,7 +35,8 @@ class FriendshipRequestsTest < ActionDispatch::IntegrationTest
     end
     assert_redirected_to users_path
     follow_redirect!
-    assert_no_match "Eric", response.body # removed from suggestions
+    assert_select "li", text: "Eric", count: 0 # removed from suggestions
+    assert_match "Friend request sent to #{eric.name}.", response.body # flash message
   end
 
   ## Sent/received friend requests
