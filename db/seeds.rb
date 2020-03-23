@@ -1,20 +1,20 @@
 ## Users
 
 # login user
-User.create(name: "Example User", email: "example@example.com", password: "password")
+User.create(name: "Hugh Mann", email: "demo@example.org", password: "demodemo")
 
 # random users
 9.times {
-    User.create(name: Faker::Name.name,
+    User.create(name: Faker::Name.unique.name,
                 email: Faker::Internet.unique.email,
                 password: Faker::Internet.password)
 }
 
 # friend requests
 User.all.each do |user|
-    people = User.where.not(id: user.id).sample(3)
+    people = user.strangers.sample(3)
     people.each do |person|
-        if FriendRequest.where("requester_id = :rr_id AND requestee_id = :re_id", rr_id: user.id, re_id: person.id).empty?
+        if person.strangers.include?(user)
             FriendRequest.create(requester: user, requestee: person)
         end
     end
@@ -25,7 +25,7 @@ FriendRequest.all.sample(FriendRequest.count/5*3).each { |f_request|
                                 accepted_on: Time.now)
 }
 
-# posts
+## Posts
 User.all.each do |user|
     10.times do
         p = user.posts.create(text: Faker::Hipster.sentence)
@@ -35,7 +35,6 @@ User.all.each do |user|
 end
 
 # likes
-
 User.all.each do |user|
     feed = user.post_feed
     to_like = feed.sample(rand(feed.length * 8 / 10))
