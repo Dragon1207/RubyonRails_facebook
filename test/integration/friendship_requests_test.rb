@@ -32,16 +32,15 @@ class FriendshipRequestsTest < ActionDispatch::IntegrationTest
 
   test "send button should create a new request" do
     get users_path
-    eric = users(:eric)
     assert_difference "@alice.friend_requests.count", 1 do
-      assert_difference "eric.friend_offers.count", 1 do
-        post friend_requests_path, params: { friend_id: eric.id }
+      assert_difference "@eric.friend_offers.count", 1 do
+        post friend_requests_path, params: { friend_id: @eric.id }
       end
     end
     assert_redirected_to users_path
     follow_redirect!
     assert_select "li", text: "Eric", count: 0 # removed from suggestions
-    assert_match "Friend request sent to #{eric.name}.", response.body # flash message
+    assert_match "Friend request sent to #{@eric.name}.", response.body # flash message
   end
 
   ## Sent/received friend requests
