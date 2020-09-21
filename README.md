@@ -8,6 +8,7 @@ To run the application locally, you need:
  * [Ruby](https://www.ruby-lang.org/en/downloads/)
  * [Rails](https://guides.rubyonrails.org/getting_started.html)
  * [PostgreSQL](https://www.postgresql.org/download/)
+ * [Yarn](https://yarnpkg.com/getting-started/install) for Tailwind CSS and Webpacker
 
 ### Setting up PostgreSQL
 
