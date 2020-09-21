@@ -1,6 +1,6 @@
-# odin-facebook
+# Phacepook
 
-This is the [final project](https://www.theodinproject.com/lessons/final-project) of the Odin Project Ruby on Rails course.
+Phacepook is a social network (Facebook clone) website built with Ruby on Rails.
 
 ## Requirements
 
@@ -9,10 +9,11 @@ To run the application locally, you need:
  * [Rails](https://guides.rubyonrails.org/getting_started.html)
  * [PostgreSQL](https://www.postgresql.org/download/)
 
-### Set up PostgreSQL
-The application by default Unix sockets to connect to a local Postgres database, using the default role name - same as the operating system user. So, you should either [create a database user](https://www.postgresql.org/docs/12/database-roles.html) with the same username, or tell the application your database access info in the _config/database.yml_ configuration file.
+### Setting up PostgreSQL
 
-## Download and run
+The application, by default, uses Unix sockets to connect to a local Postgres database, using the default role name - same as the operating system user. So, you should either [create a database user](https://www.postgresql.org/docs/12/database-roles.html) with the same username, or tell the application to use your custom database access info via the _config/database.yml_ configuration file.
+
+## Running the app
 
 Download, or clone with git: `git clone git@github.com:themetar/odin-facebook.git`<br>
 Then,
@@ -20,15 +21,19 @@ Then,
 # Install gems
 bundle install
 
-# Create database
+# Create the database
 rails db:create
 
-# Initialize database
+# Initialize the database
 rails db:schema:load
 
 # Optionally, seed the database
 rails db:seed
 
-# And run local web server
+# And start the local web server
 rails server
 ```
+
+## Origin
+
+This is the [final project](https://www.theodinproject.com/lessons/final-project) assignment of the Odin Project Ruby on Rails course.
