@@ -1,3 +1,41 @@
 @import "tailwindcss/base";
 @import "tailwindcss/components";
 @import "tailwindcss/utilities";
+
+@layer components {
+  .field {
+    @apply mt-2;
+  }
+
+  .actions {
+    @apply mt-2 mb-2;
+  }
+
+  .text-field {
+    @apply border-2 border-blue-500 rounded px-2 py-1;
+  }
+
+  .text-field:focus {
+    @apply outline-none border-blue-700 bg-blue-100;
+  }
+
+  .form-btn {
+    @apply px-2 py-1 border-2 border-blue-700 rounded-md bg-blue-700 text-white;
+  }
+
+  .form-btn:hover {
+    @apply bg-blue-600;
+  }
+
+  .form-btn:active {
+    @apply bg-blue-800;
+  }
+
+  .form-link {
+    @apply text-blue-700;
+  }
+
+  .form-link:hover {
+    @apply underline;
+  }
+}

@@ -1,6 +1,8 @@
-<div id="welcome_banner">
-  <p>Join tens of users!</p>
-</div>
-<div id="signup_pane">
-  <%= render file: 'devise/registrations/new', resource: User %>
+<div class="grid grid-cols-1 grid-rows-2 md:grid-cols-2 md:grid-rows-none">
+  <div class="place-self-center">
+    <p class="text-blue-700 text-2xl">Join <em>tens</em> of users!</p>
+  </div>
+  <div>
+    <%= render file: 'devise/registrations/new', resource: User %>
+  </div>
 </div>

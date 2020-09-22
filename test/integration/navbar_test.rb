@@ -26,6 +26,6 @@ class NavbarTest < ActionDispatch::IntegrationTest
     assert_select "a[href=?]", user_path(alice), alice.name # profile link
     # friend requests notification link
     assert_select "a[href=?]", friend_requests_path,
-                               "(#{alice.friend_offers.pending.count}) Friend #{"Request".pluralize(alice.friend_offers.pending.count)}"
+                               "#{alice.friend_offers.pending.count} Friend #{"Request".pluralize(alice.friend_offers.pending.count)}"
   end
 end
