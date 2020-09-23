@@ -1,6 +1,6 @@
-<%= form_for request do %>
+<%= form_for request, html: {class: "inline-block"} do %>
     <%= hidden_field_tag :accepted, true %>
-    <%= submit_tag "Accept Friend Request" %>
+    <%= submit_tag "Accept Friend Request", class: "social-btn" %>
 <% end %>
 <%= link_to "Delete Request", friend_request_path(request), method: :delete,
-                                    data: { confirm: "You sure?" } %>
+                                    data: { confirm: "You sure?" }, class: "social-btn social-neg ml-1" %>

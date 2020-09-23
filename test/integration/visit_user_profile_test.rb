@@ -16,7 +16,7 @@ class VisitUserProfileTest < ActionDispatch::IntegrationTest
       get user_path(u)
 
       assert_select 'h1', u.name,                                     "User page should contain user's name"
-      assert_select '.profile > img[src=?]', gravatar_url_for(u), 1,  "User page should contain gravatar photo"
+      assert_select '.profile > img[src=?]', gravatar_url_for(u, size: 160), 1,  "User page should contain gravatar photo"
     end
   end
 

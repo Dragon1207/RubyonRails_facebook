@@ -38,4 +38,20 @@
   .form-link:hover {
     @apply underline;
   }
+
+  .social-btn {
+    @apply inline-block border-2 border-blue-700 rounded px-2 py-1 text-blue-700;
+  }
+
+  .social-btn:hover {
+    @apply border-blue-800 text-blue-800;
+  }
+
+  .social-neg {
+    @apply border-gray-200 bg-gray-200;
+  }
+
+  .social-neg:hover {
+    @apply border-gray-300 bg-gray-300 text-blue-500;
+  }  
 }
