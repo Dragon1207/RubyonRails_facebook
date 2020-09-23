@@ -1,10 +1,11 @@
-<div class="comment">
-    <%= link_to comment.author.name, user_path(comment.author) %>
-    <%= time_tag(comment.created_at) %>
+<div class="comment group border-b first:border-t p-2 ml-6">
+    <%= link_to comment.author.name, user_path(comment.author), class: "text-blue-800 hover:text-blue-700" %>
+    <%= time_tag comment.created_at, class: "text-gray-700 text-sm ml-4" %>
     <% if comment.author == current_user %>
         <%= link_to "delete", comment_path(comment),
                                 method: :delete,
-                                data: { confirm: "You sure?" } %>
+                                data: { confirm: "You sure?" },
+                                class: "ml-4 text-sm text-blue-800 hover:text-red-700 invisible group-hover:visible" %>
     <% end %>
     <p><%= comment.text%></p>
 </div>

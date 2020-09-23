@@ -2,6 +2,9 @@ module.exports = {
   theme: {
     extend: {}
   },
-  variants: {},
+  variants: {
+    borderWidth: ['first', 'last'],
+    visibility: ['group-hover'],
+  },
   plugins: []
 }

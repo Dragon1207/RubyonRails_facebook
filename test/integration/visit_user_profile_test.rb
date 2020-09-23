@@ -95,7 +95,11 @@ class VisitUserProfileTest < ActionDispatch::IntegrationTest
           post = posts.where(text: post_text).first
 
           # test for post data
-          assert_select '.byline .user-name',                     user.name,                    "Post div should contain author name"
+          assert_select '.byline' do |bylines|
+            bylines.each do |byline|
+              assert_match user.name, byline.text, "Post div should contain author name"
+            end
+          end
           assert_select '.date-time a[href=?]', post_path(post),  1,                            "Post div should contain link to post"
           assert_select '.post-buttons > form',                   post.user_likes > 0 ? 0 : 1,  "Post div should contain like button (if not liked)"
           assert_select '.post-buttons > a',                      post.user_likes > 0 ? 1 : 0,  "Post div should contain unlike button (if liked)"

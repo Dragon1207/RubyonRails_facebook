@@ -1,29 +1,35 @@
-<div class="post-display">
-    <div class="byline">
-        <span class="user-name"><%= link_to post.author.name, user_path(post.author) %></span> at
-        <span class="date-time">
-            <%= link_to post_path(post) do %>
+<div class="post-display m-2 mt-4 p-2 bg-white rounded shadow-md">
+    <div class="byline text-md">
+        <span class="text-blue-800"><%= link_to post.author.name, user_path(post.author), class: "hover:text-blue-700" %></span>
+        <span class="date-time text-gray-800">
+             at
+            <%= link_to post_path(post), class: "hover:underline" do %>
             <%= time_tag(post.created_at) %>
             <% end %>
         </span>
     </div>
-    <div class="post-content">
+    <div class="post-content text-lg my-4">
         <p><%= post.text %></p>
     </div>
-    <div class="post-buttons">
+    <div class="flex">
+        <span class="flex-grow text-center font-bold text-gray-700"><%= pluralize(post.like_count, 'like') %></span>
+        <span class="flex-grow text-center font-bold text-gray-700"><%= pluralize(post.comments.size, 'comment') %></span>
+    </div>
+    <div class="post-buttons my-2 text-md">
         <% unless post.user_likes > 0 %>
-        <%= form_for :like, url: post_likes_path(post.id) do |f| %>
-            <%= f.submit "Like" %>
+        <%= form_for :like, url: post_likes_path(post.id), class: "inline-block" do |f| %>
+            <%= f.submit "Like", class: "py-1 px-2 border-2 border-blue-700 rounded bg-blue-500 text-white hover:bg-blue-300 hover:text-blue-700" %>
         <% end %>
         <% else %>
-            <%= link_to "Liked", post_like_path(post, 0),
-                                    method: :delete %>
+            <%= link_to "Liked", post_like_path(post, 0), method: :delete,
+                        class: "inline-block py-1 px-2 border-2 border-gray-300 rounded bg-white text-blue-700 hover:bg-gray-200 hover:border-gray-500 hover:text-blue-500" %>
         <% end %>
-        <%= pluralize(post.like_count, 'like') %> <%= pluralize(post.comments.size, 'comment') %>
     </div>
-    <%= render post.comments %>
+    <div>
+        <%= render post.comments %>
+    </div>
     <%= form_with url: post_comments_path(post) do |f| %>
-        <%= f.text_area :text %>
-        <%= f.submit 'Comment' %>
+        <%= f.text_area :text, rows: 1, resizable: false, class: "resize-none w-full mt-2 mb-1 border-2 rounded px-2 py-1 focus:border-blue-300 focus:outline-none" %>
+        <%= f.submit 'Comment', class: "form-btn" %>
     <% end %>
 </div>
