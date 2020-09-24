@@ -18,6 +18,8 @@
       <%= content_tag :div, message, class: "flash #{type}" %>
     <% end %>
 
+    <div class="container mx-auto">
     <%= yield %>
+    </div>
   </body>
 </html>

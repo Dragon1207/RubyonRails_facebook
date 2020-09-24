@@ -53,5 +53,5 @@
 
   .social-neg:hover {
     @apply border-gray-300 bg-gray-300 text-blue-500;
-  }  
+  }
 }

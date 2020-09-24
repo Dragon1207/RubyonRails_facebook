@@ -1,6 +1,8 @@
-<h1 class="text-2xl my-4 mx-2">Find Friends</h1>
-<ul class="mx-2">
-  <% @users.each do |user| %>
-    <%= render 'shared/user_list_item', user: user, type: :send %>
-  <% end %>
-</ul>
+<div class="mx-2 lg:mx-auto lg:w-3/4">
+  <h1 class="text-2xl my-4 mx-2">Find Friends</h1>
+  <ul class="bg-white rounded p-2 shadow-md">
+    <% @users.each do |user| %>
+      <%= render 'shared/user_list_item', user: user, type: :send %>
+    <% end %>
+  </ul>
+</div>
