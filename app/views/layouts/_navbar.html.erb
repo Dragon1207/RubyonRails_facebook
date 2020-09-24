@@ -1,14 +1,19 @@
 <div class="bg-blue-700 m-1 p-2 rounded-lg text-white md:flex md:items-center md:justify-between">
   <h1 class="text-center p-1">
-    <%= link_to "Phacepook", root_path %>
+    <%= link_to "Phacepook", root_path, class: "font-bold" %>
   </h1>
   <%  if current_user %>
   <div class="flex flex-wrap items-center">
     <%= link_to "Find Friends", users_path, class: "mx-1 p-1 rounded hover:bg-blue-800" %>
     <%= link_to "#{current_user.friend_offers.pending.load.size} Friend " + "Request".pluralize(current_user.friend_offers.pending.size),
                 friend_requests_path, class: "mx-1 p-1 rounded hover:bg-blue-800" %>
-    <span class="mx-1 px-1">Signed in as <%= link_to current_user.name, user_path(current_user), class: "p-1 rounded hover:bg-blue-800" %>
-    (<%= link_to "Sign out", destroy_user_session_path, method: :delete, class: "p-1 rounded hover:bg-blue-800" %>)</span>
+    <div class="mx-1 px-1">
+      <%= link_to user_path(current_user), class: "inline-block p-1 rounded hover:bg-blue-800" do %>
+        <%= image_tag gravatar_for(current_user, size: 40), class: "inline rounded-full" %>
+        <%= current_user.name %>
+      <% end %>
+      <%= link_to "Sign out", destroy_user_session_path, method: :delete, class: "p-1 rounded hover:bg-blue-800" %>
+    </div>
   </div>
   <% end %>
 </div>
