@@ -1,5 +1,5 @@
-<li>
-  <%= link_to user.name, user_path(user) %>
+<li class="flex justify-between mb-2">
+  <%= link_to user.name, user_path(user), class: "text-blue-700 hover:text-blue-800" %>
   <% case type %>
   <% when :send %>
     <%= render 'shared/send_request_button', user: user %>
