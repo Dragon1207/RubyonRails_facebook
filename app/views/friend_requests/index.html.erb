@@ -1,6 +1,6 @@
-<h1>Friend Requests</h1>
+<h1 class="text-2xl my-4 mx-2">Friend Requests</h1>
 <% unless @friend_offers.empty? %>
-  <ul>
+  <ul class="mx-2">
     <% @friend_offers.each do |offer| %>
     <%= render 'shared/user_list_item', user: offer.requester,
                                         request: offer,
@@ -8,10 +8,10 @@
     <% end %>
   </ul>
 <% end %>
-<%= content_tag('hr') unless @friend_offers.empty? || @friend_requests.empty? %>
-<%= content_tag('h2', "Requests you've sent") unless @friend_requests.empty? %>
+<%= content_tag('hr', "", class: "my-4") unless @friend_offers.empty? || @friend_requests.empty? %>
+<%= content_tag('h2', "Requests you've sent", class: "text-xl mx-2") unless @friend_requests.empty? %>
 <% unless @friend_requests.empty? %>
-  <ul>
+  <ul class="mx-2">
     <% @friend_requests.each do |request| %>
     <%= render 'shared/user_list_item', user: request.requestee,
                                         request: request,
