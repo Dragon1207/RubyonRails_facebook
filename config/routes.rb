@@ -12,4 +12,6 @@ Rails.application.routes.draw do
   end
 
   resources :comments, only: :destroy
+
+  get "about", controller: "static_pages"
 end

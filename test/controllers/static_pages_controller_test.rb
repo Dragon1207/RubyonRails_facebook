@@ -16,4 +16,9 @@ class StaticPagesControllerTest < ActionDispatch::IntegrationTest
     assert_redirected_to posts_path
   end
 
+  test "should get about page" do
+    get about_url
+    assert_response :success
+  end
+
 end
