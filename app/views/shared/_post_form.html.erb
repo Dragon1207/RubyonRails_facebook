@@ -1,7 +1,7 @@
-<h2 class="text-xl mx-2">Write something</h2>
+<h2 class="text-xl mx-2 my-2">Write something</h2>
 <div class="m-2">
   <%= form_for :post, url: posts_url do |f| %>
-    <%= f.text_area :text, class: "w-full resize-none border-2 rounded border-blue-700 shadow-md" %>
+    <%= f.text_area :text, class: "w-full p-2 resize-none border-2 rounded border-blue-700 shadow-md", placeholder: "What's on your mind?" %>
     <div class="text-right my-2">
       <%= f.submit "Post", class: "form-btn px-4 shadow-md" %>
     </div>
