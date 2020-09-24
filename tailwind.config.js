@@ -1,4 +1,7 @@
 module.exports = {
+  purge: [
+    './app/views/**/*.erb',
+  ],
   theme: {
     extend: {}
   },
