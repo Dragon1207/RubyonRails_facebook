@@ -9,7 +9,7 @@
                 friend_requests_path, class: "mx-1 p-1 rounded hover:bg-blue-800" %>
     <div class="mx-1 px-1">
       <%= link_to user_path(current_user), class: "inline-block p-1 rounded hover:bg-blue-800" do %>
-        <%= image_tag gravatar_for(current_user, size: 40), class: "inline rounded-full" %>
+        <%= image_tag gravatar_for(current_user, size: 30), class: "inline rounded-full" %>
         <%= current_user.name %>
       <% end %>
       <%= link_to "Sign out", destroy_user_session_path, method: :delete, class: "p-1 rounded hover:bg-blue-800" %>
