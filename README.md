@@ -34,6 +34,11 @@ rails db:seed
 # And start the local web server
 rails server
 ```
+## Features
+
+* User authentication and OAuth with [Devise](https://github.com/heartcombo/devise/)
+* Database ORM with Active Record
+* ERB component partials
 
 ## Origin
 
