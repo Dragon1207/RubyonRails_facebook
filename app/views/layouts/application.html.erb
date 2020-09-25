@@ -15,7 +15,10 @@
     <%= render 'layouts/navbar' %>
 
     <% flash.each do |type, message| %>
-      <%= content_tag :div, message, class: "flash #{type}" %>
+      <% type_styles = {"alert"  => "bg-red-600",
+                        "notice" => "bg-green-500",
+                        "flash"  => "bg-gray-600"} %>
+      <%= content_tag :div, message, class: "m-2 p-2 text-white rounded #{type_styles[type]}" %>
     <% end %>
 
     <div class="container mx-auto">
