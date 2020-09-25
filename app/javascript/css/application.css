@@ -54,4 +54,13 @@
   .social-neg:hover {
     @apply border-gray-300 bg-gray-300 text-blue-500;
   }
+
+  .about-link {
+    @apply text-blue-800;
+    text-underline-position: under;
+  }
+
+  .about-link:hover {
+    @apply text-blue-700 underline;
+  }
 }

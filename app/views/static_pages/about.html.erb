@@ -1,14 +1,44 @@
 <div class="my-4 bg-white rounded p-4">
   <h2 class="text-2xl mt-2 mb-4 text-center">About Phacepook</h2>
-  <p class="mb-2"><i>Phacepook</i> is a social network website made as an exercise in web development. You can use it as a learning tool and see how it works by reading its source code, available <a href="https://github.com/themetar/odin-facebook" target="_blank">here</a>.</p>
-  <h3 class="mt-2 mb-3 text-xl">Stack</h3>
-  <p class="mb-2">It runs on the following stack:</p>
-  <ul class="mb-2">
-    <li>PostgreSQL</li>
-    <li>Ruby</li>
-    <li>Rails</li>
+  <p class="mb-2"><i>Phacepook</i> is a social network website made as an exercise in web development.</p>
+  <h3 class="mt-3 mb-2 text-xl">Features</h3>
+  <ul class="pl-4">
+    <li>Posting text messages</li>
+    <li>Adding and accepting friends</li>
+    <li>Post feed</li>
+    <li>Single sign on with Facebook</li>
   </ul>
-  <p class="mb-2">It's currently hosted on <a href="https://www.heroku.com/" target="blank">Heroku</a>.</p>
-  <h3 class="mt-2 mb-3 text-xl">Author</h3>
-  <p class="mb-2"><i>Phacepook</i> is developed by <a href="https://github.com/themetar" target="_blank">Dimitar Apostolovski</a>.</p>
+  <h3 class="mt-3 mb-2 text-xl">Technology Stack</h3>
+  <p class="mb-2">It runs on the following stack:</p>
+  <ul class="mb-3 grid grid-cols-3 gap-2 lg:w-2/3 mx-auto">
+    <li>
+      <a href="https://www.postgresql.org" class="inline-block about-link">
+      <%= image_tag "stack_logos/postgresql", class: "inline w-10 mr-2" %>PostgreSQL
+      </a>
+    </li>
+    <li>
+      <a href="https://www.ruby-lang.org/en/" class="inline-block about-link">
+      <%= image_tag "stack_logos/ruby", class: "inline w-10 mr-2" %>Ruby
+      </a>
+    </li>
+    <li>
+      <a href="https://rubyonrails.org/" class="inline-block about-link">
+      <%= image_tag "stack_logos/rails", class: "inline h-10" %><span class="hidden">Rails</span>
+      </a>
+    </li>
+    <li>
+      <a href="https://webpack.js.org/" class="inline-block about-link">
+      <%= image_tag "stack_logos/webpack", class: "inline w-10 mr-2" %>Webpack
+      </a>
+    </li>
+    <li>
+      <a href="https://tailwindcss.com/" class="inline-block about-link">
+      <%= image_tag "stack_logos/tailwind", class: "inline w-10 mr-2" %>Tailwind CSS
+      </a>
+    </li>
+  </ul>
+  <p class="mb-2">It"s currently hosted on <a href="https://www.heroku.com/" target="blank" class="about-link"><%= image_tag "stack_logos/heroku", class: "inline align-bottom h-6 mr-1" %>Heroku</a>.</p>
+  <p>You can see how it works by reading its source code, available <a href="https://github.com/themetar/odin-facebook" target="_blank" class="about-link">here</a>.</p>
+  <h3 class="mt-3 mb-2 text-xl">Author</h3>
+  <p class="mb-2">Developed by <a href="https://github.com/themetar" target="_blank" class="about-link">Dimitar Apostolovski</a>.</p>
 </div>
