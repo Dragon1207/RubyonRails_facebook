@@ -18,7 +18,7 @@ class FacebookLoginTest < ActionDispatch::IntegrationTest
     })
 
     assert_difference 'User.count', 1 do
-      get user_facebook_omniauth_authorize_path
+      post user_facebook_omniauth_authorize_path
 
       assert_response :redirect
       assert_redirected_to user_facebook_omniauth_callback_path
@@ -48,7 +48,7 @@ class FacebookLoginTest < ActionDispatch::IntegrationTest
     user = User.from_omniauth(auth_hash)
 
     assert_no_difference 'User.count' do
-      get user_facebook_omniauth_authorize_path
+      post user_facebook_omniauth_authorize_path
 
       assert_response :redirect
       assert_redirected_to user_facebook_omniauth_callback_path
@@ -62,7 +62,7 @@ class FacebookLoginTest < ActionDispatch::IntegrationTest
     end
   end
 
-  test "user is reasked for email 3 times, when user choses not to share it" do
+  test "user is not signed up, when user choses not to share email" do
     # mock data
     auth_hash = OmniAuth::AuthHash.new({
       provider: 'facebook',
@@ -73,23 +73,11 @@ class FacebookLoginTest < ActionDispatch::IntegrationTest
     })
 
     assert_no_difference 'User.count' do
-      get user_facebook_omniauth_authorize_path
+      post user_facebook_omniauth_authorize_path
 
       assert_response :redirect
       assert_redirected_to user_facebook_omniauth_callback_path
       follow_redirect!
-      
-      3.times do
-        # ask for mail
-        assert_response :redirect
-        assert_redirected_to user_facebook_omniauth_authorize_path(auth_type: 'rerequest', scope: 'email')
-        follow_redirect!
-
-        # redirect from "facebook" to callback
-        assert_response :redirect
-        assert_redirected_to user_facebook_omniauth_callback_path
-        follow_redirect!
-      end
 
       assert_match "Could not authenticate you", flash[:notice]
       assert_redirected_to cancel_user_registration_path

@@ -37,9 +37,10 @@ gem 'jbuilder', '~> 2.5'
 gem 'bootsnap', '>= 1.1.0', require: false
 
 # Devise
-gem 'devise', ">= 4.7.1"
+gem 'devise', ">= 4.7.1", git: "https://github.com/heartcombo/devise"
 # OmniAuth
 gem 'omniauth-facebook'
+gem 'omniauth-rails_csrf_protection'
 
 # Styling with Tailwind CSS
 gem 'webpacker', '~> 4.0.0'
